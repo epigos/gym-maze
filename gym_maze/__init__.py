@@ -80,3 +80,10 @@ register(
     max_episode_steps=1000000,
     nondeterministic=True,
 )
+
+register(
+    id='maze-random-100x100-plus-v0',
+    entry_point='gym_maze.envs:MazeEnvRandom100x100Plus',
+    max_episode_steps=1000000,
+    nondeterministic=True,
+)

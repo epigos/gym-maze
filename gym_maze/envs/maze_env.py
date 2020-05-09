@@ -13,7 +13,7 @@ class MazeEnv(gym.Env):
 
     ACTION = ["N", "S", "E", "W"]
 
-    def __init__(self, maze_file=None, maze_size=None, mode=None, enable_render=True):
+    def __init__(self, maze_file=None, maze_size=None, mode=None, enable_render=True, screen_size=(640, 640)):
 
         self.viewer = None
         self.enable_render = enable_render
@@ -21,7 +21,7 @@ class MazeEnv(gym.Env):
         if maze_file:
             self.maze_view = MazeView2D(maze_name="OpenAI Gym - Maze (%s)" % maze_file,
                                         maze_file_path=maze_file,
-                                        screen_size=(640, 640), 
+                                        screen_size=screen_size,
                                         enable_render=enable_render)
         elif maze_size:
             if mode == "plus":
@@ -32,7 +32,7 @@ class MazeEnv(gym.Env):
                 num_portals = 0
 
             self.maze_view = MazeView2D(maze_name="OpenAI Gym - Maze (%d x %d)" % maze_size,
-                                        maze_size=maze_size, screen_size=(640, 640),
+                                        maze_size=maze_size, screen_size=screen_size,
                                         has_loops=has_loops, num_portals=num_portals,
                                         enable_render=enable_render)
         else:
@@ -151,7 +151,8 @@ class MazeEnvSample100x100(MazeEnv):
 class MazeEnvRandom100x100(MazeEnv):
 
     def __init__(self, enable_render=True):
-        super(MazeEnvRandom100x100, self).__init__(maze_size=(100, 100), enable_render=enable_render)
+        super(MazeEnvRandom100x100, self).__init__(maze_size=(100, 100), enable_render=enable_render,
+                                                   screen_size=(1200, 800))
 
 
 class MazeEnvRandom10x10Plus(MazeEnv):
@@ -169,3 +170,9 @@ class MazeEnvRandom20x20Plus(MazeEnv):
 class MazeEnvRandom30x30Plus(MazeEnv):
     def __init__(self, enable_render=True):
         super(MazeEnvRandom30x30Plus, self).__init__(maze_size=(30, 30), mode="plus", enable_render=enable_render)
+
+
+class MazeEnvRandom100x100Plus(MazeEnv):
+    def __init__(self, enable_render=True):
+        super(MazeEnvRandom100x100Plus, self).__init__(maze_size=(100, 100), mode="plus", enable_render=enable_render,
+                                                       screen_size=(1200, 800))
